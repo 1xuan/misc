@@ -8,11 +8,19 @@ PyCharm is now also available as a snap package. If you’re on Ubuntu 16.04 or 
 	
 ---
 
-### Remarkable:
+### Typora:
 
-	http://remarkableapp.github.io/linux/download.html         #Download
-	dpkg -i remarkable_1.62_all.deb
-	sudo apt-get install -f                 #install deplay
+	wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
+
+	# add Typora's repository
+
+	sudo add-apt-repository 'deb https://typora.io/linux ./'
+
+	sudo apt-get update
+
+	# install typora
+
+	sudo apt-get install typora
 	
 ---
 
