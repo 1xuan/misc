@@ -1,0 +1,40 @@
+" first thing is entering vim mode, not plain vi
+set nocompatible
+
+" turn on syntax
+syntax on
+
+" force 256 colors on the terminal
+set t_Co=256
+
+" shut off bell
+set belloff=all
+
+" set number and relative number
+set nu rnu
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set smarttab
+set textwidth=80
+
+" line number
+highlight LineNr cterm=italic ctermfg=darkgray ctermbg=none
+
+" cursor line number
+highlight CursorLineNr cterm=bold ctermfg=lightgray ctermbg=none
+
+" set cursorline color
+set cursorline
+hi CursorLine cterm=NONE ctermbg=234 ctermfg=NONE
+
+" set statusbar
+set laststatus=2
+hi statusline ctermbg=darkgray ctermfg=black
+
+" highlight search result and execute at real time
+set hls
+set incsearch
+
