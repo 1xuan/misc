@@ -55,6 +55,10 @@ Ubuntu安装Wine稳定版
 
 # Install Packages
 
+## vimium
+
+[Installing From Source](https://github.com/philc/vimium/blob/master/CONTRIBUTING.md#installing-from-source)
+
 ## translate-shell
 
 	$ sudo apt-get install translate-shell
