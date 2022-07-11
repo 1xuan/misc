@@ -1,4 +1,4 @@
 # misc
 
-Something that matters
+Some things that matter
 
