@@ -1,4 +1,6 @@
 #
+#
+# NOTE: execute the file under parent directory
 # Usage:
 #   $ bash ubuntu_env_setup.sh -h
 #
@@ -49,12 +51,25 @@ function pip_setup {
 }
 
 
+setup_vim () {
+    echo 'set up vim...'
+    cp --backup=numbered vimrc ~/.vimrc
+    if [ $? == 0 ]; then
+        echo -e "[$(green 'OK')]" "vim setup"
+    else
+        echo -e "[$(red 'FAILED')]" "vim setup"
+    fi
+
+}
+
+
 main () {
     if [ -z $command ] || [ $command == '-h' ] || [ $command == '--help' ]; then
         usage 
         exit 1
     elif [ $command == 'all' ]; then
         pip_setup
+        setup_vim
     else
         echo -e "[$(red 'FAILED')] There is no such command ${command}"
         echo
