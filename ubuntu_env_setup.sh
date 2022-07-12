@@ -41,7 +41,7 @@ green () {
 function pip_setup {
     # put the conf file in ~/.config/pip/
     echo 'pip config...'
-    pip config set global.index-url https://pypi.douban.com/simple
+    python -m pip config set global.index-url https://pypi.douban.com/simple
     if [ $? == 0 ]
     then
         echo -e "[$(green 'OK')]" "pip config"
