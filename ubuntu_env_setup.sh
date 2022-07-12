@@ -20,7 +20,9 @@ command=$1
 #
 # COLORs
 #
-# more info: https://www.shellhacks.com/Bash-Colors/
+# more info:
+#   https://www.shellhacks.com/Bash-Colors/
+#   https://dev.to/ifenna__/adding-colors-to-bash-scripts-48g4
 #
 
 
@@ -35,13 +37,19 @@ green () {
     echo '\e[32m'$1'\e[0m'
 }
 
+gray () {
+    echo '\e[90m'$1'\e[0m'
+}
+
+
+
 # echo -e "[$(green 'OK')]"'pip install ok'
 
 
-function pip_setup {
+setup_pip () {
     # put the conf file in ~/.config/pip/
     echo 'pip config...'
-    python -m pip config set global.index-url https://pypi.douban.com/simple
+    python3 -m pip config set global.index-url https://pypi.douban.com/simple
     if [ $? == 0 ]
     then
         echo -e "[$(green 'OK')]" "pip config"
@@ -53,11 +61,18 @@ function pip_setup {
 
 setup_vim () {
     echo 'set up vim...'
-    cp --backup=numbered vimrc ~/.vimrc
-    if [ $? == 0 ]; then
-        echo -e "[$(green 'OK')]" "vim setup"
+
+    ret=$(diff vimrc ~/.vimrc)
+
+    if [ ! -z $ret ]; then
+        cp --backup=numbered vimrc ~/.vimrc
+        if [ $? == 0 ]; then
+            echo -e "[$(green 'OK')]" "vim setup"
+        else
+            echo -e "[$(red 'FAILED')]" "vim setup"
+        fi
     else
-        echo -e "[$(red 'FAILED')]" "vim setup"
+        echo -e "[$(gray 'NO CHANGE')]" "vim setup"
     fi
 
 }
@@ -68,7 +83,7 @@ main () {
         usage 
         exit 1
     elif [ $command == 'all' ]; then
-        pip_setup
+        setup_pip
         setup_vim
     else
         echo -e "[$(red 'FAILED')] There is no such command ${command}"
