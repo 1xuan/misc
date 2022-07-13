@@ -1,9 +1,8 @@
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" " => plugin
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => plugin
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set runtimepath+=~/.vim
 
+set runtimepath+=~/.vim
 
 
 
@@ -22,6 +21,8 @@ set belloff=all
 " set number and relative number
 " set nu rnu
 
+" set about timeout of key code
+set timeout timeoutlen=3000 ttimeoutlen=100
 
 
 
@@ -39,7 +40,7 @@ highlight CursorLineNr cterm=bold ctermfg=lightgray ctermbg=none
 
 " set cursorline color
 set cursorline
-hi CursorLine cterm=NONE ctermbg=234 ctermfg=NONE
+hi CursorLine cterm=NONE ctermbg=236 ctermfg=NONE
 
 " set statusbar
 set laststatus=2
@@ -55,6 +56,9 @@ syntax on
 " force 256 colors on the terminal
 set t_Co=256
 
+" highlight POPUP MENU color
+hi Pmenu ctermbg=gray
+hi PmenuSel ctermbg=blue
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -71,7 +75,7 @@ set smarttab
 set expandtab
 
 set ai "Auto indent
-set si "Smart indent
+" set si "Smart indent
 set wrap "Wrap lines
 
 " this shouldn't use.
@@ -88,5 +92,5 @@ set wrap "Wrap lines
 " => Program compilation and run
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " C program compilation and run
-map <F8> :!gcc % && ./a.out <CR>
+map <F10> :w<CR>:!g++ % && ./a.out<CR>
 
