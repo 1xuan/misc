@@ -6,7 +6,6 @@
 #
 
 
-
 usage () {
     echo 'Usage: bash ubuntu_env_setup.sh <command>'
     echo 
@@ -88,9 +87,12 @@ setup_ssh () {
     src_file_path='./files/ssh/sshd_config'
     dest_file_path='/etc/ssh/sshd_config'
 
-    # TODO: need not generate id_rsa if it exists already
-    apt install -y openssh-client && ssh-keygen -t rsa -C 'example@email.com'
+    apt install -y openssh-client 
+    if ! test -e ~/.ssh/id_rsa; then
+        ssh-keygen -t rsa -C 'yixuan.coder@gmail.com'
+    fi
 
+    # XXX: There are a bunch of confirmations
     apt install -y openssh-server
     if [ $? == 0 ] && [ -z "$(diff ${src_file_path} ${dest_file_path})" ]; then
         cp --backup=numbered ${src_file_path} ${dest_file_path}
