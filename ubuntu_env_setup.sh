@@ -2,8 +2,9 @@
 #
 # NOTE: execute the file under parent directory
 # Usage:
-#   $ bash ubuntu_env_setup.sh -h
+#   $ sudo bash ubuntu_env_setup.sh -h
 #
+
 
 
 usage () {
@@ -62,7 +63,8 @@ setup_pip () {
 setup_vim () {
     echo 'set up vim...'
 
-    ret=$(diff vimrc ~/.vimrc)
+    # TODO: softcoding the path would be better as directory changes over time
+    ret=$(diff ./files/vim/vimrc ~/.vimrc)
 
     if [ ! -z $ret ]; then
         cp --backup=numbered vimrc ~/.vimrc
@@ -74,7 +76,35 @@ setup_vim () {
     else
         echo -e "[$(gray 'NO CHANGE')]" "vim setup"
     fi
+}
 
+
+setup_ssh () {
+    echo 'set up ssh'
+
+    src_file_path='./files/ssh/sshd_config'
+    dest_file_path='/etc/ssh/sshd_config'
+
+    apt install -y openssh-client && ssh-keygen -t rsa -C 'example@email.com'
+
+    apt install -y openssh-server
+    if [ $? == 0 ] && [ -z $(diff ${src_file_path} ${dest_file_path}) ]; then
+        cp --backup=numbered ${src_file_path} ${dest_file_path}
+    fi
+}
+
+
+install () {
+    apt update
+
+    # install shell tools
+    apt install -y tmux vim
+
+    # install network tools
+    apt install -y nmap iputils-ping net-tools
+
+    # install miscs tools
+    apt install -y tree
 }
 
 
@@ -83,8 +113,10 @@ main () {
         usage 
         exit 1
     elif [ $command == 'all' ]; then
+        install
         setup_pip
         setup_vim
+        setup_ssh
     else
         echo -e "[$(red 'FAILED')] There is no such command ${command}"
         echo
