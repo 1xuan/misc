@@ -42,15 +42,32 @@ gray () {
 }
 
 
-
 # echo -e "[$(green 'OK')]"'pip install ok'
+
+
+
+#
+# UTILITIES
+#
+
+substitute_file () {
+    src_path=$1
+    dest_path=$2
+
+    =$(diff ${src_vimrc_path} ~/.vimrc)
+
+    if [  ]
+    
+    cp --backup=numbered $src_path $dest_path
+    return $?
+}
 
 
 setup_pip () {
     # put the conf file in ~/.config/pip/
     echo 'pip config...'
     
-    apt install python3-pip && python3 -m pip install -U pip
+    apt install -y python3-pip && python3 -m pip install -U pip
 
     python3 -m pip config set global.index-url https://pypi.douban.com/simple
     if [ $? == 0 ]
@@ -103,6 +120,18 @@ setup_ssh () {
 }
 
 
+setup_apt_source () {
+    echo 'substitute apt source ...'
+
+    substitute_file ./files/apt/sources.list /etc/apt/
+    if [ $? == 0 ]; then
+        echo -e "[$(green 'OK')]" "apt source config"
+    else
+        echo -e "[$(red 'FAILED')]" "apt source config"
+    fi
+}
+
+
 install () {
     apt update
 
@@ -122,6 +151,7 @@ main () {
         usage 
         exit 1
     elif [ $command == 'all' ]; then
+        setup_apt_source
         install
         setup_pip
         setup_vim
