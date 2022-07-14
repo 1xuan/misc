@@ -54,11 +54,11 @@ substitute_file () {
     src_path=$1
     dest_path=$2
 
-    =$(diff ${src_vimrc_path} ~/.vimrc)
+    =
 
-    if [  ]
-    
-    cp --backup=numbered $src_path $dest_path
+    if [ ! -z "$(diff ${src_path} ${dest_path})" ]; then
+        cp --backup=numbered $src_path $dest_path
+    fi
     return $?
 }
 
