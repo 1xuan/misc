@@ -66,10 +66,13 @@ setup_vim () {
     echo 'set up vim...'
 
     # TODO: softcoding the path would be better as directory changes over time
-    ret=$(diff ./files/vim/vimrc ~/.vimrc)
 
-    if [ ! -z $ret ]; then
-        cp --backup=numbered vimrc ~/.vimrc
+    src_vimrc_path='./files/vim/vimrc'
+
+    ret=$(diff ${src_vimrc_path} ~/.vimrc)
+
+    if [ ! -z "$ret" ]; then
+        cp --backup=numbered ${src_vimrc_path} ~/.vimrc
         if [ $? == 0 ]; then
             echo -e "[$(green 'OK')]" "vim setup"
         else
