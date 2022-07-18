@@ -61,6 +61,27 @@ substitute_file () {
 }
 
 
+setup_python38 () {
+    echo 'set up python3.8 ...'
+    
+    apt install -y software-properties-common \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt install -y python3.8 python3.8-dev \
+    && python3.8 -m pip install -U pip
+
+    ret=$?
+
+    if [ $ret == 0 ]
+    then
+        echo -e "[$(green 'OK')]" "python3.8 config"
+    else
+        echo -e "[$(red 'FAILED')]" "python3.8 config"
+    fi
+
+    return $ret
+}
+
+
 setup_pip () {
     # put the conf file in ~/.config/pip/
     echo 'pip config...'
@@ -152,6 +173,7 @@ main () {
         setup_apt_source
         install
         setup_pip
+        setup_python38
         setup_vim
         setup_ssh
     else
