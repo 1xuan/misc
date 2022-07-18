@@ -40,7 +40,7 @@ highlight CursorLineNr cterm=bold ctermfg=lightgray ctermbg=none
 
 " set cursorline color
 set cursorline
-hi CursorLine cterm=NONE ctermbg=234 ctermfg=NONE
+hi CursorLine cterm=NONE ctermbg=235 ctermfg=NONE
 
 
 " set statusbar
