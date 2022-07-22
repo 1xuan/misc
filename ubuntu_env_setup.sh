@@ -65,7 +65,7 @@ setup_python38 () {
     echo 'set up python3.8 ...'
     
     apt install -y software-properties-common \
-    && add-apt-repository ppa:deadsnakes/ppa \
+    && add-apt-repository -y ppa:deadsnakes/ppa \
     && apt install -y python3.8 python3.8-dev \
     && python3.8 -m pip install -U pip
 
