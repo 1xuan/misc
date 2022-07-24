@@ -139,6 +139,22 @@ setup_ssh () {
 }
 
 
+setup_bashrc () {
+    cp --backup=numbered files/bash/mybashrc ~/.mybashrc
+    
+    # always put source command at last line
+    sed -i '/\. ~\/\.mybashrc/d' ~/.bashrc
+    echo '. ~/.mybashrc' >> ~/.bashrc
+
+    if [ "`tail -n 1 ~/.bashrc`" = '. ~/.mybashrc' ]; then
+        echo -e "[$(green 'OK')]" "bashrc config"
+    else
+        echo -e "[$(red 'FAILED')]" "bashrc config"
+    fi
+
+}
+
+
 setup_apt_source () {
     echo 'substitute apt source ...'
 
@@ -176,6 +192,7 @@ main () {
         setup_python38
         setup_vim
         setup_ssh
+        setup_bashrc
     else
         echo -e "[$(red 'FAILED')] There is no such command ${command}"
         echo
