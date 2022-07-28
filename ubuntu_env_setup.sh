@@ -105,7 +105,12 @@ setup_vim () {
 
     src_vimrc_path='./files/vim/vimrc'
 
-    ret=$(diff ${src_vimrc_path} ~/.vimrc)
+    if [ ! -f ~/.vimrc ]; then
+        ret='no files'
+    else
+        ret=$(diff ${src_vimrc_path} ~/.vimrc)
+    fi
+
 
     if [ ! -z "$ret" ]; then
         cp --backup=numbered ${src_vimrc_path} ~/.vimrc
